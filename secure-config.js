@@ -61,8 +61,9 @@ function getConfigPath(options) {
     return confPath;
 }
 
-module.exports = (options) => {
-    let conf = require(getConfigPath(options));
+module.exports = (options) => {  
+    // Allow using own config resolver
+    let conf = options.config || require(getConfigPath(options));
     const key = getKey(getOptValue(options, 'keyVariable', defaultKeyVariableName));
     decryptConfig(conf, key);
     if (getOptValue(options, 'hmacValidation', defaultHmacValidation)) {
