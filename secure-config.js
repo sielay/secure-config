@@ -53,7 +53,8 @@ function decryptConfig(conf, confKey) {
 function getConfigPath(options) {
     const prefix = getOptValue(options, 'prefix', defaultFilePrefix);
     const confFileName = prefix + (process.env.NODE_ENV ? '-' + process.env.NODE_ENV : '') + '.json';
-    const confPath = path.join(process.cwd(), defaultDirectory, confFileName);
+    const directory = getOptValue(options, 'directory', path.join(process.cwd(), defaultDirectory));
+    const confPath = path.join(directory, confFileName);
     if (!fs.existsSync(confPath)) {
         throw new Error(`Configuration file for NODE_ENV ${process.env.NODE_ENV} and prefix ${prefix} does not exist.`);
     }
